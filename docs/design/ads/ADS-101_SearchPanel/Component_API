@@ -1,0 +1,382 @@
+# ADS-101
+# COMPONENT_API.md
+
+Version : 1.0
+Status : LOCKED
+
+---
+
+# Component
+
+AdsSearchPanel
+
+---
+
+# Purpose
+
+AdsSearchPanel is the standard search component for all GoldenCell Admin list pages.
+
+It provides a consistent interface for searching, filtering, resetting conditions, and managing advanced search options.
+
+AdsSearchPanel contains no business logic.
+
+Its responsibility is limited to rendering search controls and handling user interactions.
+
+---
+
+# Design Principles
+
+- Business Independent
+- Metadata Driven
+- Reusable
+- Type Safe
+- Accessible
+- Production Ready
+
+---
+
+# Technology Standard
+
+- React
+- TypeScript
+- react-hook-form
+- Zod
+- Tailwind CSS
+- shadcn/ui
+
+---
+
+# Responsibilities
+
+AdsSearchPanel SHALL
+
+- Render search fields
+- Render action buttons
+- Support advanced search
+- Support loading state
+- Submit search values
+- Reset search values
+
+AdsSearchPanel SHALL NOT
+
+- Fetch data
+- Call APIs
+- Perform business validation
+- Manage domain state
+- Know any business rules
+
+---
+
+# Component Props
+
+```ts
+import { UseFormReturn } from "react-hook-form";
+
+export interface AdsSearchPanelProps<
+    TFieldValues = Record<string, unknown>
+> {
+
+    /**
+     * react-hook-form instance
+     */
+    form: UseFormReturn<TFieldValues>;
+
+    /**
+     * Search field definitions
+     */
+    fields: SearchField[];
+
+    /**
+     * Search button loading state
+     */
+    loading?: boolean;
+
+    /**
+     * Enable Advanced Search
+     */
+    collapsible?: boolean;
+
+    /**
+     * Initial expanded state
+     */
+    defaultExpanded?: boolean;
+
+    /**
+     * Search submit handler
+     */
+    onSearch(data: TFieldValues): void;
+
+    /**
+     * Optional reset callback
+     */
+    onReset?(): void;
+}
+```
+
+---
+
+# SearchField
+
+```ts
+export interface SearchField {
+
+    /**
+     * react-hook-form field name
+     */
+    name: string;
+
+    /**
+     * Field label
+     */
+    label: string;
+
+    /**
+     * Field component type
+     */
+    type: SearchFieldType;
+
+    /**
+     * 12-column grid width
+     */
+    colSpan?: number;
+
+    /**
+     * Placeholder
+     */
+    placeholder?: string;
+
+    /**
+     * Select options
+     */
+    options?: SelectOption[];
+
+    /**
+     * Disabled state
+     */
+    disabled?: boolean;
+
+    /**
+     * Visibility
+     */
+    visible?: boolean;
+
+}
+```
+
+---
+
+# SearchFieldType
+
+```ts
+export type SearchFieldType =
+
+    | "text"
+    | "number"
+    | "email"
+
+    | "select"
+    | "multiselect"
+
+    | "date"
+    | "daterange"
+
+    | "checkbox"
+    | "radio"
+
+    | "switch";
+```
+
+---
+
+# SelectOption
+
+```ts
+export interface SelectOption {
+
+    label: string;
+
+    value: string;
+
+}
+```
+
+---
+
+# Layout Rules
+
+The component shall follow
+
+- DOC-102 ADS Layout System
+- 12 Column Grid
+- 8px Spacing System
+
+Search actions remain right aligned.
+
+---
+
+# Search Actions
+
+Order
+
+Secondary
+
+- Reset
+
+Primary
+
+- Search
+
+Primary Action must always remain in a predictable position.
+
+---
+
+# Advanced Search
+
+If enabled
+
+Default
+
+Collapsed
+
+User may expand additional search conditions.
+
+Expanded state is managed internally.
+
+---
+
+# Event Flow
+
+```
+User Input
+
+↓
+
+react-hook-form
+
+↓
+
+Submit
+
+↓
+
+onSearch()
+
+↓
+
+Parent Component
+
+↓
+
+API Call
+```
+
+AdsSearchPanel never communicates with APIs directly.
+
+---
+
+# Validation
+
+Validation is handled by
+
+- react-hook-form
+- Zod
+
+AdsSearchPanel only displays validation results.
+
+Business validation belongs to the parent component.
+
+---
+
+# Accessibility
+
+Required
+
+- Keyboard Navigation
+- Tab Navigation
+- Enter = Search
+- Screen Reader Support
+- ARIA Labels
+
+---
+
+# Performance
+
+The component should
+
+- Avoid unnecessary rendering
+- Support memoization
+- Support lazy rendering of Advanced Search
+
+---
+
+# Internal State
+
+Managed internally
+
+- Advanced Search Expanded
+
+Managed externally
+
+- Form Values
+- Loading
+
+---
+
+# Component Structure
+
+```
+AdsSearchPanel
+
+├── AdsSearchRow
+├── AdsSearchField
+├── AdsSearchActions
+└── AdsAdvancedSearch
+```
+
+---
+
+# Dependencies
+
+Allowed
+
+- react-hook-form
+- zod
+- shadcn/ui
+- ADS Primitive Components
+
+Forbidden
+
+- API Clients
+- Zustand
+- TanStack Query
+- Domain Services
+
+---
+
+# Definition of Done
+
+The component is complete when
+
+- TypeScript Strict passes
+- ESLint passes
+- Storybook renders successfully
+- Uses Design Tokens only
+- Follows ADS Guidelines
+- Has no business logic
+- Supports reuse across Hospital, Program, Reservation, Member and future domains
+
+---
+
+# ADS-101 Manifesto
+
+Search is the starting point of every business workflow.
+
+Users should never relearn how to search.
+
+Consistency creates confidence.
+
+Confidence improves productivity.
+
+Build one Search Panel.
+
+Use it everywhere.
