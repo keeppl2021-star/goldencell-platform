@@ -14,4 +14,9 @@
   const observer=new MutationObserver(()=>setTimeout(apply,0));
   document.querySelectorAll('[data-screen]').forEach(el=>observer.observe(el,{attributes:true,attributeFilter:['class']}));
   apply();
+
+  // Load AI unified-input enhancement after the base app/spec scripts are initialized.
+  const script=document.createElement('script');
+  script.src='./ai-combined.js?v=6';
+  document.body.appendChild(script);
 })();
