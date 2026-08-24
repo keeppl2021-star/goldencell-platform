@@ -23,6 +23,18 @@
 <script src="./treatment-enhancement.js"></script>
 <script src="./ai-flow.js"></script>
 <script src="./ai-program-results.js"></script>
-<script>if(['#program','#hospitalDetail','#treatmentDetail','#treatments','#ai','#airesult','#aiPrograms'].includes(location.hash))render();</script>
+<script>
+(function(){
+  const renderCurrent=()=>{ if(typeof window.render==='function') window.render(); };
+  window.go=function(page){
+    const next='#'+page;
+    if(location.hash===next){ renderCurrent(); }
+    else { location.hash=next; }
+  };
+  document.querySelectorAll('[data-page]').forEach(el=>{el.onclick=()=>window.go(el.dataset.page)});
+  window.addEventListener('hashchange',renderCurrent);
+  renderCurrent();
+})();
+</script>
 </body>
 </html>
