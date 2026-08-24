@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldenCell Demo v2</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" type="button" data-go="home" aria-label="GoldenCell 홈">
+      <span class="brand-mark">G</span>
+      <strong>GOLDENCELL</strong>
+    </button>
+    <span class="preview-badge">DEMO V2</span>
+  </header>
+
+  <main class="app-shell">
+    <section class="screen is-active" data-screen="home">
+      <div class="eyebrow">GOLDENCELL SERVICE DEMO</div>
+      <h1>내게 맞는 줄기세포 치료,<br />어떻게 알아볼까요?</h1>
+      <p class="lead">병원과 치료를 직접 비교하거나, AI 맞춤 제안과 여러 병원의 치료 제안을 이용해보세요.</p>
+
+      <div class="choice-grid">
+        <article class="choice-card">
+          <span class="choice-icon">01</span>
+          <h2>직접 찾아보기</h2>
+          <p>원하는 병원과 치료 프로그램을 직접 검색하고 비교합니다.</p>
+          <button type="button" class="button secondary" disabled>다음 단계에서 연결</button>
+        </article>
+
+        <article class="choice-card featured">
+          <span class="choice-icon">AI</span>
+          <h2>AI 맞춤 치료 제안</h2>
+          <p>부위, 불편 증상, 상세 내용을 기준으로 우선 확인할 치료 방향을 제안합니다.</p>
+          <button type="button" class="button primary" data-go="ai-start">AI 추천 받기</button>
+        </article>
+
+        <article class="choice-card">
+          <span class="choice-icon">BID</span>
+          <h2>치료제안 입찰</h2>
+          <p>내 치료 조건을 등록하고 여러 병원의 제안을 받아 비교합니다.</p>
+          <button type="button" class="button orange" disabled>다음 단계에서 연결</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="ai-start">
+      <button type="button" class="back-link" data-go="home">← HOME</button>
+      <div class="eyebrow">GOLDENCELL AI · BETA</div>
+      <h1>치료명을 몰라도 괜찮습니다.</h1>
+      <p class="lead">현재 불편한 부위와 증상을 알려주시면 치료 정보를 탐색하는 출발점을 정리해드립니다.</p>
+      <div class="intro-panel">
+        <div><span>1</span><strong>불편 부위 선택</strong></div>
+        <div><span>2</span><strong>증상·상세내용 입력</strong></div>
+        <div><span>3</span><strong>AI 분석 결과 확인</strong></div>
+      </div>
+      <button type="button" class="button primary large" data-go="ai-body">시작하기</button>
+    </section>
+
+    <section class="screen" data-screen="ai-body">
+      <button type="button" class="back-link" data-go="ai-start">← 이전</button>
+      <div class="step-row"><span>AI 맞춤 치료 제안</span><strong>1 / 2</strong></div>
+      <div class="progress"><i class="on"></i><i></i></div>
+      <h1>어느 부위가 가장 불편하신가요?</h1>
+      <p class="lead">현재 가장 신경 쓰이는 부위를 하나 선택해주세요.</p>
+
+      <div class="body-grid" id="bodyOptions">
+        <button type="button" data-body="무릎·관절">무릎·관절</button>
+        <button type="button" data-body="허리·척추">허리·척추</button>
+        <button type="button" data-body="어깨">어깨</button>
+        <button type="button" data-body="피부·미용">피부·미용</button>
+        <button type="button" data-body="두피·탈모">두피·탈모</button>
+        <button type="button" data-body="면역·항노화">면역·항노화</button>
+        <button type="button" data-body="기타">기타</button>
+      </div>
+
+      <div class="bottom-bar">
+        <span>선택한 부위 <strong id="selectedBodyLabel">없음</strong></span>
+        <button type="button" class="button primary" id="bodyNext" disabled>다음 단계 →</button>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="ai-detail">
+      <button type="button" class="back-link" data-go="ai-body">← 부위 선택</button>
+      <div class="step-row"><span>AI 맞춤 치료 제안</span><strong>2 / 2</strong></div>
+      <div class="progress"><i class="on"></i><i class="on"></i></div>
+      <div class="eyebrow">선택 부위 · <span id="detailBodyLabel">-</span></div>
+      <h1>어떤 불편함이 있으신가요?</h1>
+      <p class="lead">해당되는 증상을 선택하고, 현재 상태를 자유롭게 적어주세요.</p>
+
+      <div class="form-panel">
+        <h2>불편 증상 <small>여러 개 선택 가능</small></h2>
+        <div class="symptom-grid" id="symptomOptions"></div>
+      </div>
+
+      <div class="form-panel">
+        <h2>상세 내용 <small>직접 입력</small></h2>
+        <textarea id="detailText" placeholder="예) 1년 전부터 오른쪽 무릎이 아프고 계단을 내려갈 때 특히 통증이 있습니다."></textarea>
+      </div>
+
+      <div class="bottom-bar">
+        <span><strong id="detailSummary">부위 선택 완료</strong></span>
+        <button type="button" class="button primary" id="detailComplete">입력 내용 확인</button>
+      </div>
+
+      <div class="complete-note" id="completeNote" hidden>
+        여기까지가 1차 검증 구간입니다. 다음 단계에서 AI 분석 결과 화면을 연결합니다.
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
