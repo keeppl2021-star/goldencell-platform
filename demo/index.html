@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#ffffff">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>GOLDENCELL Demo</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20260824-2119">
 </head>
 <body>
 <header>
@@ -17,21 +20,16 @@
 <div class="demo-bar"><span><b>DEMO FLOW</b></span><button onclick="go('home')">01 HOME</button><i>›</i><button onclick="go('ai')">02 AI 맞춤제안</button><i>›</i><button onclick="go('bid')">03 치료제안 입찰</button><i>›</i><button onclick="go('hospital')">04 병원 Dashboard</button><span class="demo-hint">서비스 핵심 시나리오</span></div>
 <main id="app"></main>
 <footer><div><b>GOLDENCELL</b><p>신뢰할 수 있는 줄기세포 치료 탐색과 회복 경험을 연결합니다.</p></div><div class="footer-points"><span>의료기관 공식 인증</span><span>개인정보 안전 보호</span><span>AI 기반 맞춤 의료 서비스</span><span>투명한 상담·가격 비교</span></div></footer>
-<script src="./app.js"></script>
-<script src="./hospital-detail.js"></script>
-<script src="./program-detail.js"></script>
-<script src="./treatment-enhancement.js"></script>
-<script src="./ai-flow.js"></script>
-<script src="./ai-program-results.js"></script>
+<script src="./app.js?v=20260824-2119"></script>
+<script src="./hospital-detail.js?v=20260824-2119"></script>
+<script src="./program-detail.js?v=20260824-2119"></script>
+<script src="./treatment-enhancement.js?v=20260824-2119"></script>
+<script src="./ai-flow.js?v=20260824-2119"></script>
+<script src="./ai-program-results.js?v=20260824-2119"></script>
 <script>
 (function(){
   const renderCurrent=()=>{ if(typeof window.render==='function') window.render(); };
-  window.go=function(page){
-    const next='#'+page;
-    if(location.hash===next){ renderCurrent(); }
-    else { location.hash=next; }
-  };
-  document.querySelectorAll('[data-page]').forEach(el=>{el.onclick=()=>window.go(el.dataset.page)});
+  document.querySelectorAll('[data-page]').forEach(el=>{el.onclick=()=>go(el.dataset.page)});
   window.addEventListener('hashchange',renderCurrent);
   renderCurrent();
 })();
