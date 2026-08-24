@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>GOLDENCELL Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header>
+  <button class="brand" data-page="home" aria-label="GoldenCell 홈"><span class="logo">G</span><b>GOLDENCELL</b></button>
+  <div class="global-search">병원·시술을 검색해 보세요. <span>⌕</span></div>
+  <nav><button data-page="home">환자 Demo</button><button data-page="hospital">병원 Demo</button></nav>
+  <span class="badge">SERVICE DEMO</span>
+</header>
+<div class="demo-bar"><span><b>DEMO FLOW</b></span><button onclick="go('home')">01 HOME</button><i>›</i><button onclick="go('ai')">02 AI 맞춤제안</button><i>›</i><button onclick="go('bid')">03 치료제안 입찰</button><i>›</i><button onclick="go('hospital')">04 병원 Dashboard</button><span class="demo-hint">서비스 핵심 시나리오</span></div>
+<main id="app"></main>
+<footer><div><b>GOLDENCELL</b><p>신뢰할 수 있는 줄기세포 치료 탐색과 회복 경험을 연결합니다.</p></div><div class="footer-points"><span>의료기관 공식 인증</span><span>개인정보 안전 보호</span><span>AI 기반 맞춤 의료 서비스</span><span>투명한 상담·가격 비교</span></div></footer>
+<script src="./app.js"></script>
+<script src="./hospital-detail.js"></script>
+<script src="./program-detail.js"></script>
+<script src="./treatment-enhancement.js"></script>
+<script src="./ai-flow.js"></script>
+<script src="./ai-program-results.js"></script>
+<script>if(['#program','#hospitalDetail','#treatmentDetail','#treatments','#ai','#airesult','#aiPrograms'].includes(location.hash))render();</script>
+</body>
+</html>
